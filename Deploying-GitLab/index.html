@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Deploying GitLab – Sean Sackowitz – Ansible Automation Architect from North Carolina</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="GitLab is a fantastic tool, whether you are a large enterprise developing many complex projects, or if you are a lonely developer working on the ‘next big thing’. It enables you as a developer to organize and track your projects through their development.
+
+" />
+    <meta property="og:description" content="GitLab is a fantastic tool, whether you are a large enterprise developing many complex projects, or if you are a lonely developer working on the ‘next big thing’. It enables you as a developer to organize and track your projects through their development.
+
+" />
+    
+    <meta name="author" content="Sean Sackowitz" />
+
+    
+        
+
+
+
+
+
+
+    
+
+    
+    <meta property="og:title" content="Deploying GitLab" />
+    <meta property="twitter:title" content="Deploying GitLab" />
+    
+
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Sean Sackowitz - Ansible Automation Architect from North Carolina" href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="/images/Me.jpg" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Sean Sackowitz</a></h1>
+            <p class="site-description">Ansible Automation Architect from North Carolina</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+            <a href="/resume">Resume</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Deploying GitLab</h1>
+  <span>[
+    
+      
+      <a href="/tag/GitLab"><code class="highligher-rouge"><nobr>GitLab</nobr></code>&nbsp;</a>
+    
+      
+      <a href="/tag/Docker"><code class="highligher-rouge"><nobr>Docker</nobr></code>&nbsp;</a>
+    
+  ]</span>
+  <div class="entry">
+    <p>GitLab is a fantastic tool, whether you are a large enterprise developing many complex projects, or if you are a lonely developer working on the <em>‘next big thing’</em>. It enables you as a developer to organize and track your projects through their development.</p>
+
+<p>I personally am a huge advocate of self-hosting open-source software, because it allows me to maintain control, and keeps me from having to pay for others to maintain servers. I tend to host the majority of my services through Docker running on a Virtual Machine because it allows me to rapidly startup, shutdown, upgrade, and migrate my services if I need to.</p>
+
+<p>I am going to show you how to host a GitLab instance through Docker.</p>
+
+<p>The official GitLab image for the free version is located at: <a href="https://hub.docker.com/r/gitlab/gitlab-ce/">https://hub.docker.com/r/gitlab/gitlab-ce/</a></p>
+
+<p>To use this image, you first need to have docker installed, and to do this, you should follow the offical docker installation instructions for your preferred distro. Mine happens to be Fedora, which you can find here <a href="https://docs.docker.com/install/linux/docker-ce/fedora/">https://docs.docker.com/install/linux/docker-ce/fedora/</a></p>
+
+<p>So, got that? Ok, onto the actual instructions.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>docker run <span class="nt">-d</span> <span class="nt">-p</span> 40443:443 <span class="nt">-p</span> 40080:80 <span class="nt">-p</span> 40022:22 <span class="se">\</span>
+<span class="nt">-v</span> /data/gitlab/config:/etc/gitlab <span class="se">\</span>
+<span class="nt">-v</span> /data/gitlab/logs:/var/log/gitlab <span class="se">\</span>
+<span class="nt">-v</span> /data/gitlab/data:/var/opt/gitlab <span class="se">\</span>
+gitlab/gitlab-ce:latest</code></pre></figure>
+
+<p>So, what exactly is this command doing?</p>
+
+<p><strong>-d</strong> = Run the docker command in the background in detach mode.</p>
+
+<p><strong>-p</strong> = Specifies an external port to map to a port in the container (in this case, if you browse to your docker host’s 40443 port, it will display the content hosted on port 443 of your container.</p>
+
+<p><strong>-v</strong> = Maps a location on your docker host, to a location in your container. This is how you will make your data persist between containers being shut down.</p>
+
+<p><strong>gitlab/gitlab-ce:latest</strong> = This is the docker image that you are telling it to run. This defaults to use https://hub.docker.com/r/{image}:{image_version}</p>
+
+<p>Give your new GitLab instance a few minutes to come online, then browse to localhost:40080, and view your new self-hosted SCM. At this point, you just need to create a username and password, and start using it! Share your service with your friends if you can afford to, because not everyone has spare hardware laying around to try the same.</p>
+
+  </div>
+
+  <script src="https://utteranc.es/client.js"
+        repo="seansackowitz/seansackowitz.github.io"
+        issue-term="Deploying GitLab"
+        async>
+  </script>
+
+  <div class="date">
+    Written on February 22, 2018
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:sean.sackowitz@gmail.com"><i class="svg-icon email"></i></a>
+
+
+<a href="https://github.com/seansackowitz"><i class="svg-icon github"></i></a>
+
+<a href="https://www.linkedin.com/in/sean-sackowitz-07279862"><i class="svg-icon linkedin"></i></a>
+
+
+<a href="https://www.twitter.com/SeanSackowitz"><i class="svg-icon twitter"></i></a>
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+  </body>
+</html>

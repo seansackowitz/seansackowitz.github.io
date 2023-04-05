@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="seansackowitz.me/feed.xml" rel="self" type="application/atom+xml" /><link href="seansackowitz.me/" rel="alternate" type="text/html" /><updated>2023-04-05T15:28:55+00:00</updated><id>seansackowitz.me/feed.xml</id><title type="html">Sean Sackowitz</title><subtitle>Ansible Automation Architect from North Carolina</subtitle><entry><title type="html">Deploying GitLab</title><link href="seansackowitz.me/Deploying-GitLab/" rel="alternate" type="text/html" title="Deploying GitLab" /><published>2018-02-22T00:00:00+00:00</published><updated>2018-02-22T00:00:00+00:00</updated><id>seansackowitz.me/Deploying-GitLab</id><content type="html" xml:base="seansackowitz.me/Deploying-GitLab/">&lt;p&gt;GitLab is a fantastic tool, whether you are a large enterprise developing many complex projects, or if you are a lonely developer working on the &lt;em&gt;‘next big thing’&lt;/em&gt;. It enables you as a developer to organize and track your projects through their development.&lt;/p&gt;
+
+&lt;p&gt;I personally am a huge advocate of self-hosting open-source software, because it allows me to maintain control, and keeps me from having to pay for others to maintain servers. I tend to host the majority of my services through Docker running on a Virtual Machine because it allows me to rapidly startup, shutdown, upgrade, and migrate my services if I need to.&lt;/p&gt;
+
+&lt;p&gt;I am going to show you how to host a GitLab instance through Docker.&lt;/p&gt;
+
+&lt;p&gt;The official GitLab image for the free version is located at: &lt;a href=&quot;https://hub.docker.com/r/gitlab/gitlab-ce/&quot;&gt;https://hub.docker.com/r/gitlab/gitlab-ce/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To use this image, you first need to have docker installed, and to do this, you should follow the offical docker installation instructions for your preferred distro. Mine happens to be Fedora, which you can find here &lt;a href=&quot;https://docs.docker.com/install/linux/docker-ce/fedora/&quot;&gt;https://docs.docker.com/install/linux/docker-ce/fedora/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So, got that? Ok, onto the actual instructions.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 40443:443 &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 40080:80 &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 40022:22 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /data/gitlab/config:/etc/gitlab &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /data/gitlab/logs:/var/log/gitlab &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /data/gitlab/data:/var/opt/gitlab &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+gitlab/gitlab-ce:latest&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So, what exactly is this command doing?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-d&lt;/strong&gt; = Run the docker command in the background in detach mode.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-p&lt;/strong&gt; = Specifies an external port to map to a port in the container (in this case, if you browse to your docker host’s 40443 port, it will display the content hosted on port 443 of your container.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;-v&lt;/strong&gt; = Maps a location on your docker host, to a location in your container. This is how you will make your data persist between containers being shut down.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;gitlab/gitlab-ce:latest&lt;/strong&gt; = This is the docker image that you are telling it to run. This defaults to use https://hub.docker.com/r/{image}:{image_version}&lt;/p&gt;
+
+&lt;p&gt;Give your new GitLab instance a few minutes to come online, then browse to localhost:40080, and view your new self-hosted SCM. At this point, you just need to create a username and password, and start using it! Share your service with your friends if you can afford to, because not everyone has spare hardware laying around to try the same.&lt;/p&gt;</content><author><name></name></author><category term="GitLab" /><category term="Docker" /><summary type="html">GitLab is a fantastic tool, whether you are a large enterprise developing many complex projects, or if you are a lonely developer working on the ‘next big thing’. It enables you as a developer to organize and track your projects through their development.</summary></entry></feed>
